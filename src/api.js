@@ -1,31 +1,31 @@
-const Koa = require("koa");
+const Koa = require("koa")
 
-const { handleErrorMiddleware } = require("./middleware/handleError");
+const { handleErrorMiddleware } = require("./middleware/handleError")
 
-const helloWorldRouter = require("./api/helloWorld/helloWorld.index");
-const errorOnPurposeRouter = require("./api/errorOnPurpose/errorOnPurpose.index");
+const helloWorldRouter = require("./api/helloWorld/helloWorld.index")
+const errorOnPurposeRouter = require("./api/errorOnPurpose/errorOnPurpose.index")
 
-const app = new Koa();
+const config = require("./config")
 
-const PORT = 3000;
+const app = new Koa()
 
-let server;
+let server
 
-async function startApi() {
-  app.use(handleErrorMiddleware);
+async function startApi(port) {
+  app.use(handleErrorMiddleware)
 
-  app.use(helloWorldRouter);
-  app.use(errorOnPurposeRouter);
+  app.use(helloWorldRouter)
+  app.use(errorOnPurposeRouter)
 
-  server = app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-  });
+  server = app.listen(port || config.PORT, () => {
+    console.log(`Listening on port ${port || config.PORT}`)
+  })
 }
 
 async function stopApi() {
-  await new Promise((resolve) => server.close(resolve));
+  await new Promise((resolve) => server.close(resolve))
 
-  console.log("Closing server...");
+  console.log("Closing server...")
 }
 
-module.exports = { startApi, stopApi };
+module.exports = { startApi, stopApi }

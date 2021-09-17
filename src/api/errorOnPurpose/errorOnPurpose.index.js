@@ -1,11 +1,10 @@
 const Router = require("@koa/router");
+const {createError} = require('http-errors')
 
 const router = new Router();
 
 router.get("/api/error", async (ctx) => {
-  console.log("Error");
-
-  throw new Error("ERROR");
+  throw new Error('an error occured')
 });
 
 module.exports = router.routes();

@@ -1,5 +1,8 @@
 {
   "name": "koasetup",
+  "jest": {
+    "testMatch": ["**/__tests__/**/*.test.js"]
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,7 +25,8 @@
   "dependencies": {
     "@koa/router": "^10.1.0",
     "http-errors": "^1.8.0",
-    "koa": "^2.13.1"
+    "koa": "^2.13.1",
+    "superagent": "^6.1.0"
   },
   "devDependencies": {
     "jest": "^27.0.6",
