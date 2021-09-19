@@ -1,5 +1,4 @@
 const Router = require("@koa/router");
-const {createError} = require('http-errors')
 
 const router = new Router();
 
