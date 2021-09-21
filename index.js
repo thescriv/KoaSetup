@@ -1,7 +1,17 @@
-const { startApi } = require("./src/api");
+require("dotenv").config()
+
+const { startApi, stopApi } = require("./src/api")
 
 async function main() {
-  await startApi();
+  console.log(process.env)
+
+  startApi()
 }
 
-main();
+process.on("SIGTERM", async () => {
+  console.info("SIGTERM signal received.")
+
+  await stopApi()
+})
+
+main()

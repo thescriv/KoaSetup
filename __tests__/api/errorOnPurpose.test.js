@@ -1,17 +1,13 @@
 const { startApi, stopApi } = require("../../src/api")
-const { createApiClient } = require("../utils")
-
-const config = require("../../src/config")
+const {apiClient} = require("../apiClient")
 
 describe("errorOnPurpose API", () => {
-  let apiClient = null
+  let client = null
 
   beforeAll(async () => {
     await startApi(3001)
 
-    const apiUrl = `${config.API_URL}:3001`
-
-    apiClient = createApiClient(apiUrl)
+    client = new apiClient(3001)
   })
 
   afterAll(async () => {
@@ -23,7 +19,7 @@ describe("errorOnPurpose API", () => {
       let error
 
       try {
-        await apiClient.errorOnPurpose()
+        await client.errorOnPurpose()
       } catch (err) {
         error = err.response
       }

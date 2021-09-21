@@ -1,9 +1,9 @@
-const Router = require("@koa/router");
+const Router = require("@koa/router")
 
-const router = new Router();
+const { errorOnPurpose } = require("./errorOnPurpose.controller")
 
-router.get("/api/error", async (ctx) => {
-  throw new Error('an error occured')
-});
+const router = new Router()
 
-module.exports = router.routes();
+router.get("/api/error", errorOnPurpose)
+
+module.exports = router.routes()

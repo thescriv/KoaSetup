@@ -17,8 +17,8 @@ async function startApi(port) {
   app.use(helloWorldRouter)
   app.use(errorOnPurposeRouter)
 
-  server = app.listen(port || config.PORT, () => {
-    console.log(`Listening on port ${port || config.PORT}`)
+  server = app.listen(port || config.API_PORT, () => {
+    console.log(`Listening on port ${port || config.API_PORT}`)
   })
 }
 

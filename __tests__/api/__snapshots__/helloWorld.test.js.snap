@@ -2,7 +2,9 @@
 
 exports[`HelloWorld API HelloWorldApi do fetch helloWorldRouter 1`] = `
 Object {
-  "body": Object {},
+  "body": Object {
+    "message": "Hello World",
+  },
   "status": 200,
 }
 `;

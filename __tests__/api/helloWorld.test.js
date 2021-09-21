@@ -1,17 +1,13 @@
 const { startApi, stopApi } = require("../../src/api")
-const { createApiClient } = require("../utils")
+const {apiClient} = require("../apiClient")
 
-const config = require("../../src/config")
-
-let apiClient
+let client
 
 describe("HelloWorld API", () => {
   beforeAll(async () => {
     await startApi(3000)
 
-    const apiUrl = `${config.API_URL}:3000`
-
-    apiClient = createApiClient(apiUrl)
+    client = new apiClient(3000)
   })
 
   afterAll(async () => {
@@ -20,7 +16,7 @@ describe("HelloWorld API", () => {
 
   describe("HelloWorldApi", () => {
     test("do fetch helloWorldRouter", async () => {
-      const { body, status } = await apiClient.helloWorldApi()
+      const { body, status } = await client.helloWorldApi()
 
       expect({ body, status }).toMatchSnapshot()
     })
