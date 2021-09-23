@@ -1,11 +1,11 @@
-const Koa = require("koa")
+const Koa = require('koa')
 
-const { handleErrorMiddleware } = require("./middleware/handleError")
+const { handleErrorMiddleware } = require('./middleware/handleError')
 
-const helloWorldRouter = require("./api/helloWorld/helloWorld.index")
-const errorOnPurposeRouter = require("./api/errorOnPurpose/errorOnPurpose.index")
+const helloWorldRouter = require('./api/helloWorld/helloWorld.index')
+const errorOnPurposeRouter = require('./api/errorOnPurpose/errorOnPurpose.index')
 
-const config = require("./config")
+const config = require('./config')
 
 const app = new Koa()
 
@@ -25,7 +25,7 @@ async function startApi(port) {
 async function stopApi() {
   await new Promise((resolve) => server.close(resolve))
 
-  console.log("Closing server...")
+  console.log('Closing server...')
 }
 
 module.exports = { startApi, stopApi }

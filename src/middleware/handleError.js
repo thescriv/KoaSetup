@@ -5,7 +5,7 @@ async function handleErrorMiddleware(ctx, next) {
     ctx.status = err.status || 500
 
     ctx.body = {
-      message: "An error occured, sorry !",
+      message: 'An error occured, sorry !'
     }
   }
 }
