@@ -4,9 +4,14 @@ async function handleErrorMiddleware(ctx, next) {
   } catch (err) {
     ctx.status = err.status || 500
 
-    ctx.body = {
-      message: 'An error occured, sorry !'
+    const errorMessage = err?.message || 'An error occured, sorry !'
+
+    const error = {
+      message: err?.message || 'An error occured, sorry !',
+      help: err?.help || errorMessage
     }
+
+    ctx.body = error
   }
 }
 

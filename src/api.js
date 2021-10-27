@@ -1,4 +1,8 @@
 const Koa = require('koa')
+const dotenv = require('dotenv')
+
+const bodyParser = require('koa-bodyparser')
+const cors = require('@koa/cors')
 
 const { handleErrorMiddleware } = require('./middleware/handleError')
 
@@ -7,11 +11,16 @@ const errorOnPurposeRouter = require('./api/errorOnPurpose/errorOnPurpose.index'
 
 const config = require('./config')
 
-const app = new Koa()
-
 let server
 
 async function startApi(port) {
+  const app = new Koa()
+
+  dotenv.config()
+
+  app.use(bodyParser())
+  app.use(cors())
+
   app.use(handleErrorMiddleware)
 
   app.use(helloWorldRouter)
