@@ -1,5 +1,17 @@
-async function helloWorld(ctx) {
+const { validateHelloWorldBody } = require('./helloWorld.schema')
+
+async function getHelloWorldController(ctx) {
   ctx.body = { message: 'Hello World' }
 }
 
-module.exports = { helloWorld }
+async function postHelloWorldController(ctx) {
+  const {
+    request: { body }
+  } = ctx
+
+  validateHelloWorldBody(body)
+
+  ctx.body = { message: `Hello World ${body.name}` }
+}
+
+module.exports = { getHelloWorldController, postHelloWorldController }

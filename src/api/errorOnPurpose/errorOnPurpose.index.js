@@ -1,9 +1,14 @@
 const Router = require('@koa/router')
 
-const { errorOnPurpose } = require('./errorOnPurpose.controller')
+const {
+  classicErrorOnPurpose,
+  httpErrorOnPurpose
+} = require('./errorOnPurpose.controller')
 
 const router = new Router()
 
-router.get('/api/error', errorOnPurpose)
+router.get('/error/classic', classicErrorOnPurpose)
+
+router.get('/error/http', httpErrorOnPurpose)
 
 module.exports = router.routes()

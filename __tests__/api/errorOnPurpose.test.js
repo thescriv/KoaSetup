@@ -1,7 +1,7 @@
-const { startApi, stopApi } = require("../../src/api")
-const {apiClient} = require("../apiClient")
+const { startApi, stopApi } = require('../../src/api')
+const { apiClient } = require('../apiClient')
 
-describe("errorOnPurpose API", () => {
+describe('errorOnPurpose API', () => {
   let client = null
 
   beforeAll(async () => {
@@ -14,12 +14,27 @@ describe("errorOnPurpose API", () => {
     await stopApi()
   })
 
-  describe("errorOnPurposeAPI", () => {
-    test("do not fetch errorOnPurpose", async () => {
+  describe('GET /error/classic', () => {
+    test('do get an error', async () => {
       let error
 
       try {
-        await client.errorOnPurpose()
+        await client.classicErrorOnPurpose()
+      } catch (err) {
+        error = err.response
+      }
+      const { body, status } = error
+
+      expect({ body, status }).toMatchSnapshot()
+    })
+  })
+
+  describe('GET /error/http', () => {
+    test('do get an error', async () => {
+      let error
+
+      try {
+        await client.httpErrorOnPurpose()
       } catch (err) {
         error = err.response
       }

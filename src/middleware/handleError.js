@@ -7,7 +7,7 @@ async function handleErrorMiddleware(ctx, next) {
     const errorMessage = err?.message || 'An error occured, sorry !'
 
     const error = {
-      message: err?.message || 'An error occured, sorry !',
+      message: errorMessage,
       help: err?.help || errorMessage
     }
 

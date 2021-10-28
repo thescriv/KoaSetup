@@ -1,7 +1,7 @@
 const Ajv = require('ajv')
 const createError = require('http-errors')
 
-const ajv = new Ajv() // options can be passed, e.g. {allErrors: true}
+const ajv = new Ajv()
 
 function createValidator(schema) {
   const ajvValidator = ajv.compile(schema)
@@ -10,19 +10,16 @@ function createValidator(schema) {
     const isValid = ajvValidator(data)
 
     if (!isValid) {
-      const errors = ajvValidator.errors.map((error) => {
-        return {
-          param_name: error.dataPath,
-          keyword: error.keyword,
-          message: error.message,
-          details: error.params
-        }
-      })
+      const firstError = ajvValidator.errors[0]
 
-      throw createError(400, 'Oops something got wrong', {
-        help: 'Validation error',
-        helps: errors
-      })
+      const error = {
+        param_name: firstError.dataPath,
+        keyword: firstError.keyword,
+        message: firstError.message.replace(/\./, ''),
+        details: firstError.params
+      }
+
+      throw createError(400, error)
     }
   }
 }
