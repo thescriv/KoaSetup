@@ -20,15 +20,11 @@ class apiClient {
   }
 
   async classicErrorOnPurpose() {
-    const res = await superagent.get(`${this.apiUrl}/error/classic`)
-
-    return res
+    await superagent.get(`${this.apiUrl}/error/classic`)
   }
 
   async httpErrorOnPurpose() {
-    const res = await superagent.get(`${this.apiUrl}/error/http`)
-
-    return res
+    await superagent.get(`${this.apiUrl}/error/http`)
   }
 }
 

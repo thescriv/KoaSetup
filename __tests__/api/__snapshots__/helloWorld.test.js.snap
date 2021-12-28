@@ -2,10 +2,8 @@
 
 exports[`HelloWorld API GET /hello_world/classic_get do fetch getHelloWorld 1`] = `
 Object {
-  "body": Object {
-    "message": "Hello World",
-  },
-  "status": 200,
+  "body": Object {},
+  "status": 204,
 }
 `;
 

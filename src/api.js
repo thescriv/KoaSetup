@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const bodyParser = require('koa-bodyparser')
 const cors = require('@koa/cors')
 
+const { globalMiddleware } = require('./middleware/globalMiddleware')
 const { handleErrorMiddleware } = require('./middleware/handleError')
 
 const helloWorldRouter = require('./api/helloWorld/helloWorld.index')
@@ -21,6 +22,7 @@ async function startApi(port) {
   app.use(bodyParser())
   app.use(cors())
 
+  app.use(globalMiddleware)
   app.use(handleErrorMiddleware)
 
   app.use(helloWorldRouter)

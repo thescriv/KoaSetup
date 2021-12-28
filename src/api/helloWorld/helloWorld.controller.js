@@ -1,7 +1,7 @@
 const { validateHelloWorldBody } = require('./helloWorld.schema')
 
 async function getHelloWorldController(ctx) {
-  ctx.body = { message: 'Hello World' }
+  ctx.body = {}
 }
 
 async function postHelloWorldController(ctx) {
