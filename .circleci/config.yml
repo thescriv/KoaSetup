@@ -6,7 +6,8 @@ orbs:
 jobs:
   tests:
     docker:
-      - image: cimg/node:16.10
+      - image: cimg/node:16.10  
+      - resource_class: small
     steps:
       - checkout
       - node/install-packages:
@@ -17,6 +18,7 @@ jobs:
   linter:
     docker:
       - image: cimg/node:16.10
+      - resource_class: small
     steps:
       - checkout
       - node/install-packages:
