@@ -16,7 +16,7 @@ jobs:
       - image: circleci/node:12.4 
     steps:
       - checkout
-      - run: npm install esLint
+      - run: npm install eslint
       - run: npm run lint
 
 workflows:
