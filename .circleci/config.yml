@@ -27,7 +27,7 @@ jobs:
           command: npm test
       - run:
           name: Run Linter
-          command: npm lint
+          command: npm run lint
 
 workflows:
   # Below is the definition of your workflow.
