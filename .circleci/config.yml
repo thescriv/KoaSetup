@@ -20,9 +20,10 @@ jobs:
       - run: npm run lint
 
 workflows:
-  sample:
+  koaSetupJobs:
     jobs:
       - linter
       - tests:
-        requires:
-          - linter
+          requires:
+            - linter
+        
