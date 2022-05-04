@@ -6,29 +6,23 @@ orbs:
 jobs:
   tests:
     docker:
-      - image: cimg/node:16.10  
-      - resource_class: small
+      - image: circleci/node:12.4 
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          name: Run tests
-          command: npm test
+      - run: npm install
+      - run: npm run test
   linter:
     docker:
-      - image: cimg/node:16.10
-      - resource_class: small
+      - image: circleci/node:12.4 
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          name: Run linter
-          command: npm run lint
+      - run: npm install esLint
+      - run: npm run lint
 
 workflows:
   sample:
     jobs:
-      - tests
       - linter
+      - tests
+        requires:
+          - linter
