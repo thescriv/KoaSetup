@@ -23,6 +23,6 @@ workflows:
   sample:
     jobs:
       - linter
-      - tests
+      - tests:
         requires:
           - linter
