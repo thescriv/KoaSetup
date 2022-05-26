@@ -1,4 +1,6 @@
-const config = require('../config')
+const { logger } = require('../utils/logger')
+
+const log = logger.child({ func: 'handleErrorMiddleware' })
 
 async function handleErrorMiddleware(ctx, next) {
   try {
@@ -13,9 +15,7 @@ async function handleErrorMiddleware(ctx, next) {
       help: err?.help || errorMessage
     }
 
-    if (config.MIDDLEWARE_ERROR_LOGGER) {
-      console.log(err)
-    }
+    log.error({ err })
 
     ctx.body = error
   }
