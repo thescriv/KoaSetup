@@ -1,3 +1,4 @@
+const createError = require('http-errors')
 const { validateHelloWorldBody } = require('./helloWorld.schema')
 
 async function getHelloWorldController(ctx) {
@@ -9,7 +10,11 @@ async function postHelloWorldController(ctx) {
     request: { body }
   } = ctx
 
-  validateHelloWorldBody(body)
+  const helloWorldBodyValidation = validateHelloWorldBody(body)
+
+  if (!helloWorldBodyValidation.isValid) {
+    throw createError(400, helloWorldBodyValidation.errors[0])
+  }
 
   ctx.body = { message: `Hello World ${body.name}` }
 }

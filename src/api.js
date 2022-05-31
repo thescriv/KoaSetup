@@ -1,23 +1,26 @@
 const Koa = require('koa')
-const dotenv = require('dotenv')
+const { logger } = require('./utils/logger')
+
+const { createConnection, closeConnection } = require('./helpers/db')
 
 const bodyParser = require('koa-bodyparser')
 const cors = require('@koa/cors')
 
-const { globalMiddleware } = require('./middleware/globalMiddleware')
+const { globalMiddleware } = require('./middleware/handleSuccess')
 const { handleErrorMiddleware } = require('./middleware/handleError')
 
 const helloWorldRouter = require('./api/helloWorld/helloWorld.index')
-const errorOnPurposeRouter = require('./api/errorOnPurpose/errorOnPurpose.index')
 
 const config = require('./config')
+
+const log = logger.child({ func: 'startApi' })
 
 let server
 
 async function startApi(port) {
   const app = new Koa()
 
-  dotenv.config()
+  await createConnection()
 
   app.use(bodyParser())
   app.use(cors())
@@ -26,17 +29,41 @@ async function startApi(port) {
   app.use(handleErrorMiddleware)
 
   app.use(helloWorldRouter)
-  app.use(errorOnPurposeRouter)
 
-  server = app.listen(port || config.API_PORT, () => {
-    console.log(`Listening on port ${port || config.API_PORT}`)
-  })
+  server = app.listen(port || config.API_PORT)
+
+  log.info(`Listening on port ${port || config.API_PORT}`)
+
+  server.on('error', log.info)
+
+  return server
 }
 
 async function stopApi() {
-  await new Promise((resolve) => server.close(resolve))
+  await Promise.all([
+    new Promise((resolve) => {
+      log.info('Closing server...')
 
-  console.log('Closing server...')
+      if (server) {
+        server.close()
+
+        log.info('Server closed.')
+      } else {
+        log.info('Server already closed.')
+      }
+      resolve()
+    }),
+    closeConnection()
+  ])
 }
+
+process.on('SIGTERM', async () => {
+  log.info('get a SIGTERM signal')
+  await stopApi()
+})
+process.on('SIGINT', async () => {
+  log.info('get a SIGINT signal')
+  await stopApi()
+})
 
 module.exports = { startApi, stopApi }
