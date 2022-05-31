@@ -4,7 +4,7 @@ const config = require('../config')
 
 const { logger } = require('../utils/logger')
 
-const log = logger.child({ func: 'db' })
+const log = logger.child({ file: 'db' })
 
 let client
 let dbPromise
@@ -19,10 +19,10 @@ async function createConnection() {
     { useNewUrlParser: true }
   )
 
-  log.info('Initalize connection to Database...')
+  log.info({ func: 'createConnection' }, 'Initalize connection to Database...')
   dbPromise = await client.connect()
 
-  log.info('Connected to Database')
+  log.info({ func: 'createConnection' }, 'Connected to Database')
 
   return dbPromise
 }
@@ -32,16 +32,16 @@ function isConnected() {
 }
 
 function closeConnection() {
-  log.info('closing connection')
+  log.info({ func: 'closeConnection' }, 'closing connection')
   if (dbPromise) {
     client.close()
 
     client = null
     dbPromise = null
 
-    log.info('Connection closed.')
+    log.info({ func: 'closeConnection' }, 'Connection closed.')
   } else {
-    log.info('connection already closed.')
+    log.info({ func: 'closeConnection' }, 'connection already closed.')
   }
 }
 

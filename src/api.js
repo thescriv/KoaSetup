@@ -13,7 +13,7 @@ const helloWorldRouter = require('./api/helloWorld/helloWorld.index')
 
 const config = require('./config')
 
-const log = logger.child({ func: 'startApi' })
+const log = logger.child({ func: 'api' })
 
 let server
 
@@ -32,9 +32,9 @@ async function startApi(port) {
 
   server = app.listen(port || config.API_PORT)
 
-  log.info(`Listening on port ${port || config.API_PORT}`)
+  log.info({ func: 'startApi' }, `Listening on port ${port || config.API_PORT}`)
 
-  server.on('error', log.info)
+  server.on('error', log.error)
 
   return server
 }
@@ -42,14 +42,14 @@ async function startApi(port) {
 async function stopApi() {
   await Promise.all([
     new Promise((resolve) => {
-      log.info('Closing server...')
+      log.info({ func: 'stopApi' }, 'Closing server...')
 
       if (server) {
         server.close()
 
-        log.info('Server closed.')
+        log.info({ func: 'stopApi' }, 'Server closed.')
       } else {
-        log.info('Server already closed.')
+        log.info({ func: 'stopApi' }, 'Server already closed.')
       }
       resolve()
     }),
@@ -58,11 +58,11 @@ async function stopApi() {
 }
 
 process.on('SIGTERM', async () => {
-  log.info('get a SIGTERM signal')
+  log.info({ func: 'stopApi' }, 'get a SIGTERM signal')
   await stopApi()
 })
 process.on('SIGINT', async () => {
-  log.info('get a SIGINT signal')
+  log.info({ func: 'stopApi' }, 'get a SIGINT signal')
   await stopApi()
 })
 
