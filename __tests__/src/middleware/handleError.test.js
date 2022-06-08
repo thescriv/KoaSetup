@@ -23,8 +23,8 @@ describe('Middleware handleError', () => {
     expect(ctx).not.toStrictEqual({})
     expect(ctx.status).toBe(500)
     expect(ctx.body).toStrictEqual({
-      message: 'An error occured, sorry !',
-      help: 'An error occured, sorry !'
+      message: 'errors.default',
+      help: 'errors.default'
     })
   })
 
