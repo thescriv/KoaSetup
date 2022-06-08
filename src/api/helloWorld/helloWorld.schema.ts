@@ -8,4 +8,4 @@ const validateHelloWorldBody = createValidator({
   required: ['name']
 })
 
-module.exports = { validateHelloWorldBody }
+export { validateHelloWorldBody }
