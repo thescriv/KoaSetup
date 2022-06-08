@@ -1,6 +1,6 @@
 const { isEmpty } = require('lodash')
 
-async function globalMiddleware(ctx, next) {
+async function handleSuccess(ctx, next) {
   await next()
 
   if (ctx.status === 200 && isEmpty(ctx.body)) {
@@ -8,4 +8,4 @@ async function globalMiddleware(ctx, next) {
   }
 }
 
-module.exports = { globalMiddleware }
+module.exports = { handleSuccess }
