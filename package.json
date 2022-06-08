@@ -20,7 +20,9 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "prepare": "husky install",
-    "lint": "eslint -c .eslintrc.js './src/**/*.js'"
+    "lint": "eslint -c .eslintrc.js './src/**/*.ts'",
+    "build": "tsc",
+    "watch": "tsc --watch"
   },
   "repository": {
     "type": "git",
@@ -47,11 +49,17 @@
     "mongodb": "^4.6.0",
     "pino": "^7.11.0",
     "prettier": "^2.6.2",
-    "superagent": "^6.1.0"
+    "superagent": "^6.1.0",
+    "typescript": "^4.7.4"
   },
   "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.7",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa__cors": "^3.3.0",
+    "@types/koa__router": "^8.0.11",
+    "@types/lodash": "^4.14.182",
     "eslint": "^7.32.0",
-    "pino-pretty": "^7.6.1",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
@@ -59,6 +67,7 @@
     "husky": "^7.0.0",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
+    "pino-pretty": "^7.6.1",
     "pretty-quick": "^3.1.1"
   }
 }

@@ -1,4 +1,4 @@
-const Router = require('@koa/router')
+import Router from '@koa/router'
 
 const {
   getHelloWorldController,
@@ -11,4 +11,4 @@ router.get('/hello_world/classic_get', getHelloWorldController)
 
 router.post('/hello_world/classic_post', postHelloWorldController)
 
-module.exports = router.routes()
+export default router.routes()

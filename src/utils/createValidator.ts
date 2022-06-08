@@ -8,7 +8,7 @@ function createValidator(schema) {
   return function validate(data) {
     const isValid = ajvValidator(data)
 
-    let errors
+    let errors: Error[] = []
 
     if (!isValid) {
       errors = ajvValidator.errors.map((error) => {

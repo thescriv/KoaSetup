@@ -1,11 +1,13 @@
-const createError = require('http-errors')
-const { validateHelloWorldBody } = require('./helloWorld.schema')
+import createError from 'http-errors'
+import { validateHelloWorldBody } from './helloWorld.schema'
 
-async function getHelloWorldController(ctx) {
+import { ContextApp } from '../../interface'
+
+async function getHelloWorldController(ctx: ContextApp) {
   ctx.body = {}
 }
 
-async function postHelloWorldController(ctx) {
+async function postHelloWorldController(ctx: ContextApp) {
   const {
     request: { body }
   } = ctx
