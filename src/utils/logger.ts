@@ -1,8 +1,12 @@
-const pino = require('pino')
+import pino from 'pino'
 
 import config from '../config'
 
-const pinoOption: { sync: boolean, level: string, transport?: { target: 'pino-pretty' } } = {
+const pinoOption: {
+  sync: boolean
+  level: string
+  transport?: { target: 'pino-pretty' }
+} = {
   sync: true,
   level: config.LOGGER_LEVEL
 }

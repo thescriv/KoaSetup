@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
+import { Server } from 'http'
 
 import { logger } from './utils/logger'
 import { createConnection, closeConnection } from './helpers/db'
@@ -14,7 +15,7 @@ import config from './config'
 
 const log = logger.child({ func: 'api' })
 
-let server: any
+let server: Server
 
 async function startApi(port: number) {
   const app: Koa = new Koa()

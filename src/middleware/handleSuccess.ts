@@ -1,6 +1,8 @@
-const { isEmpty } = require('lodash')
+import { ContextApp } from '../interface'
 
-export default async function handleSuccess(ctx, next) {
+import { isEmpty } from 'lodash'
+
+export default async function handleSuccess(ctx: ContextApp, next: () => void) {
   await next()
 
   if (ctx.status === 200 && isEmpty(ctx.body)) {

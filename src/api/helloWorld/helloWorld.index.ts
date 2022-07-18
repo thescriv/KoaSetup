@@ -1,9 +1,9 @@
 import Router from '@koa/router'
 
-const {
+import {
   getHelloWorldController,
   postHelloWorldController
-} = require('./helloWorld.controller')
+} from './helloWorld.controller'
 
 const router = new Router()
 

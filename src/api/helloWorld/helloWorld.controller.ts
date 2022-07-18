@@ -21,4 +21,4 @@ async function postHelloWorldController(ctx: ContextApp) {
   ctx.body = { message: `Hello World ${body.name}` }
 }
 
-module.exports = { getHelloWorldController, postHelloWorldController }
+export { getHelloWorldController, postHelloWorldController }

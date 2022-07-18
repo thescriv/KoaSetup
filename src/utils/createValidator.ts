@@ -1,17 +1,20 @@
-const Ajv = require('ajv')
+import Ajv from 'ajv'
+
+import { HashOf } from '../interface'
 
 const ajv = new Ajv()
 
-function createValidator(schema) {
+function createValidator(schema: HashOf<any>) {
   const ajvValidator = ajv.compile(schema)
 
-  return function validate(data) {
+  return function validate(data: any) {
     const isValid = ajvValidator(data)
 
     let errors: Error[] = []
 
     if (!isValid) {
-      errors = ajvValidator.errors.map((error) => {
+      const ajvErrors = ajvValidator.errors as Ajv.ErrorObject[]
+      errors = ajvErrors.map((error) => {
         const dataPath = error.dataPath.replace(/\./, '')
 
         const message = `${dataPath}${error.message}`
@@ -22,11 +25,11 @@ function createValidator(schema) {
           message,
           details: error.params
         }
-      })
+      }) as any
     }
 
     return { isValid, errors }
   }
 }
 
-module.exports = { createValidator }
+export { createValidator }
