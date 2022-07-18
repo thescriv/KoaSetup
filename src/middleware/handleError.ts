@@ -2,26 +2,33 @@ import { logger } from '../utils/logger'
 
 import { translate } from '../utils/i18n'
 import { ContextApp } from '../interface'
-import { Callback } from 'mongodb'
+import { HttpError } from 'http-errors'
 
 const log = logger.child({ func: 'handleErrorMiddleware' })
 
-export default async function handleErrorMiddleware(ctx: ContextApp, next: Promise<Callback>) {
+export default async function handleErrorMiddleware(
+  ctx: ContextApp,
+  next: () => void
+) {
   try {
     await next()
-  } catch (err) {
-    ctx.status = err.status || 500
+  } catch (err: unknown) {
+    let error
 
-    const errorMessage = translate(err?.message || 'errors.default', {
-      lng: ctx?.language || 'en'
-    })
+    if (err instanceof HttpError) {
+      ctx.status = err.status || 500
 
-    const error = {
-      message: errorMessage,
-      help: err?.help || errorMessage
+      const errorMessage = translate(err?.message || 'errors.default', {
+        lng: ctx?.language || 'en'
+      })
+
+      error = {
+        message: errorMessage,
+        help: err?.help || errorMessage
+      }
+
+      log.error({ err })
     }
-
-    log.error({ err })
 
     ctx.body = error
   }
