@@ -1,7 +1,8 @@
-const i18next = require('i18next')
-const config = require('../config')
+import * as i18n from 'i18next'
 
-i18next.init({
+import config from '../config'
+
+i18n.init({
   supportedLngs: ['en', 'fr'],
   resources: {
     fr: {
@@ -17,14 +18,10 @@ i18next.init({
   }
 })
 
-function translate(input, options = { lng: 'en' }) {
+export default function translate(input: string, options = { lng: 'en' }) {
   if (config.ENABLE_I18N_TRANSLATION) {
-    return i18next.t(input, options)
+    return i18n.t(input, options)
   }
 
   return input
-}
-
-module.exports = {
-  translate
 }

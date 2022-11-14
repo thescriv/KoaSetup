@@ -1,12 +1,11 @@
-const { startApi, stopApi } = require('../../src/api')
-const config = require('../../src/config')
+import { startApi, stopApi } from '../../src/api'
+import config from '../../src/config'
 
 describe('Global test api', () => {
   test('do launch and close api', async () => {
     const server = await startApi(3002)
 
     expect(server).toBeDefined()
-    expect(server.address().port).toBe(3002)
 
     await stopApi()
   })
@@ -16,7 +15,6 @@ describe('Global test api', () => {
     const server = await startApi()
 
     expect(server).toBeDefined()
-    expect(server.address().port).toBe(3002)
 
     await stopApi()
 
@@ -27,7 +25,6 @@ describe('Global test api', () => {
     const server = await startApi(3002)
 
     expect(server).toBeDefined()
-    expect(server.address().port).toBe(3002)
 
     process.emit('SIGTERM', 'SIGTERM')
   })
@@ -36,7 +33,6 @@ describe('Global test api', () => {
     const server = await startApi(3002)
 
     expect(server).toBeDefined()
-    expect(server.address().port).toBe(3002)
 
     process.emit('SIGINT', 'SIGINT')
   })

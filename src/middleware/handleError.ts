@@ -1,12 +1,17 @@
-const { logger } = require('../utils/logger')
-const { translate } = require('../utils/i18n')
+import { logger } from '../utils/logger'
+
+import translate from '../utils/i18n'
+import { ContextApp } from '../interface'
 
 const log = logger.child({ func: 'handleErrorMiddleware' })
 
-async function handleErrorMiddleware(ctx, next) {
+export default async function handleErrorMiddleware(
+  ctx: ContextApp,
+  next: () => Promise<void>
+) {
   try {
     await next()
-  } catch (err) {
+  } catch (err: any) {
     ctx.status = err.status || 500
 
     const errorMessage = translate(err?.message || 'errors.default', {
@@ -23,5 +28,3 @@ async function handleErrorMiddleware(ctx, next) {
     ctx.body = error
   }
 }
-
-module.exports = { handleErrorMiddleware }

@@ -1,4 +1,4 @@
-const { createValidator } = require('../../utils/createValidator')
+import { createValidator } from '../../utils/createValidator'
 
 const validateHelloWorldBody = createValidator({
   type: 'object',
@@ -8,4 +8,4 @@ const validateHelloWorldBody = createValidator({
   required: ['name']
 })
 
-module.exports = { validateHelloWorldBody }
+export { validateHelloWorldBody }

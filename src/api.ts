@@ -1,24 +1,24 @@
-const Koa = require('koa')
-const { logger } = require('./utils/logger')
+import Koa from 'koa'
+import bodyParser from 'koa-bodyparser'
+import cors from '@koa/cors'
+import { Server } from 'http'
 
-const { createConnection, closeConnection } = require('./helpers/db')
+import { logger } from './utils/logger'
+import { createConnection, closeConnection } from './helpers/db'
 
-const bodyParser = require('koa-bodyparser')
-const cors = require('@koa/cors')
+import handleSuccess from './middleware/handleSuccess'
+import handleErrorMiddleware from './middleware/handleError'
 
-const { handleSuccess } = require('./middleware/handleSuccess')
-const { handleErrorMiddleware } = require('./middleware/handleError')
+import helloWorldRouter from './api/helloWorld/helloWorld.index'
 
-const helloWorldRouter = require('./api/helloWorld/helloWorld.index')
-
-const config = require('./config')
+import config from './config'
 
 const log = logger.child({ func: 'api' })
 
-let server
+let server: Server
 
-async function startApi(port) {
-  const app = new Koa()
+async function startApi(port?: number) {
+  const app: Koa = new Koa()
 
   await createConnection()
 
@@ -41,7 +41,7 @@ async function startApi(port) {
 
 async function stopApi() {
   await Promise.all([
-    new Promise((resolve) => {
+    new Promise<void>((resolve) => {
       log.info({ func: 'stopApi' }, 'Closing server...')
 
       if (server) {
@@ -53,7 +53,7 @@ async function stopApi() {
       }
       resolve()
     }),
-    closeConnection()
+    await closeConnection()
   ])
 }
 
@@ -66,4 +66,4 @@ process.on('SIGINT', async () => {
   await stopApi()
 })
 
-module.exports = { startApi, stopApi }
+export { startApi, stopApi }

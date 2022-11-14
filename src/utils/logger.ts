@@ -1,8 +1,12 @@
-const pino = require('pino')
+import pino from 'pino'
 
-const config = require('../config')
+import config from '../config'
 
-const pinoOption = {
+const pinoOption: {
+  sync: boolean
+  level: string
+  transport?: { target: 'pino-pretty' }
+} = {
   sync: true,
   level: config.LOGGER_LEVEL
 }
@@ -14,4 +18,4 @@ if (['local'].includes(config.NODE_ENV)) {
 
 const logger = pino(pinoOption)
 
-module.exports = { logger }
+export { logger }

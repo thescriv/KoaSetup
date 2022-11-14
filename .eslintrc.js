@@ -1,15 +1,14 @@
 module.exports = {
-  env: {
-    browser: true,
-    commonjs: true,
-    es2021: true,
-    jest: true
-  },
-  extends: ['standard'],
-  parserOptions: {
-    ecmaVersion: 12
-  },
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended'
+  ],
   rules: {
-    'space-before-function-paren': 0
+    'space-before-function-paren': 0,
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }
