@@ -1,5 +1,5 @@
 import config from '../../../src/config'
-import { translate } from '../../../src/utils/i18n'
+import translate from '../../../src/utils/i18n'
 
 describe('i18n LIB', () => {
   test('should get a translation', async () => {
@@ -19,7 +19,9 @@ describe('i18n LIB', () => {
   test('should not get a translation (language asked is not supported)', async () => {
     config.ENABLE_I18N_TRANSLATION = true
 
-    expect(translate('errors.default', { lng: 'de' })).toBe('errors.default')
+    expect(translate('errors.default', { lng: 'foobar' })).toBe(
+      'errors.default'
+    )
   })
 
   test('should not get a translation (ENABLE_I18N_TRANSLATION = false', async () => {

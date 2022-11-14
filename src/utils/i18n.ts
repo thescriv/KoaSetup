@@ -1,8 +1,8 @@
-import i18next from 'i18next'
+import * as i18n from 'i18next'
 
 import config from '../config'
 
-i18next.init({
+i18n.init({
   supportedLngs: ['en', 'fr'],
   resources: {
     fr: {
@@ -18,12 +18,10 @@ i18next.init({
   }
 })
 
-function translate(input: string, options = { lng: 'en' }) {
+export default function translate(input: string, options = { lng: 'en' }) {
   if (config.ENABLE_I18N_TRANSLATION) {
-    return i18next.t(input, options)
+    return i18n.t(input, options)
   }
 
   return input
 }
-
-export { translate }

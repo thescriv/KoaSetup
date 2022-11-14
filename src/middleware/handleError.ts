@@ -1,6 +1,6 @@
 import { logger } from '../utils/logger'
 
-import { translate } from '../utils/i18n'
+import translate from '../utils/i18n'
 import { ContextApp } from '../interface'
 
 const log = logger.child({ func: 'handleErrorMiddleware' })
