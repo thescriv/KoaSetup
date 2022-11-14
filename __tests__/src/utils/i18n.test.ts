@@ -1,5 +1,5 @@
-const config = require('../../../src/config')
-const { translate } = require('../../../src/utils/i18n')
+import config from '../../../src/config'
+import { translate } from '../../../src/utils/i18n'
 
 describe('i18n LIB', () => {
   test('should get a translation', async () => {

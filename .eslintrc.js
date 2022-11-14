@@ -8,6 +8,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended'
   ],
   rules: {
-    'space-before-function-paren': 0
+    'space-before-function-paren': 0,
+    'no-explicit-any': ['off']
   }
 }

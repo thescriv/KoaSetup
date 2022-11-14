@@ -1,4 +1,4 @@
-const { createValidator } = require('../../../src/utils/createValidator')
+import { createValidator } from '../../../src/utils/createValidator'
 
 describe('Create validator', () => {
   test('do create a validator function', () => {
@@ -17,7 +17,7 @@ describe('Create validator', () => {
     expect(validatorFunction).toBeDefined()
 
     const validationReturn = validatorFunction('foobar')
-    expect(validationReturn.errors).toBeUndefined()
+    expect(validationReturn.errors).toStrictEqual([])
     expect(validationReturn.isValid).toBe(true)
   })
 

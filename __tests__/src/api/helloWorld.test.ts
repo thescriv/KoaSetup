@@ -1,6 +1,6 @@
-const { beforeAllSetup } = require('../../setup/jest.setup.beforeAll')
+import beforeAllSetup from '../../setup/jest.setup.beforeAll'
 
-let client
+let client: any
 
 describe('HelloWorld API', () => {
   beforeAll(async () => {

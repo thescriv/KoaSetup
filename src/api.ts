@@ -17,7 +17,7 @@ const log = logger.child({ func: 'api' })
 
 let server: Server
 
-async function startApi(port: number) {
+async function startApi(port?: number) {
   const app: Koa = new Koa()
 
   await createConnection()
@@ -53,7 +53,7 @@ async function stopApi() {
       }
       resolve()
     }),
-    closeConnection()
+    await closeConnection()
   ])
 }
 
@@ -66,4 +66,4 @@ process.on('SIGINT', async () => {
   await stopApi()
 })
 
-module.exports = { startApi, stopApi }
+export { startApi, stopApi }

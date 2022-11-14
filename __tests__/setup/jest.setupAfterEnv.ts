@@ -1,10 +1,6 @@
-const { restoreDate, mockDate } = require('../jest.mock')
-const { stopApi } = require('../../src/api')
-const {
-  closeConnection,
-  getDbClient,
-  isConnected
-} = require('../../src/helpers/db')
+import { restoreDate, mockDate } from '../jest.mock'
+import { stopApi } from '../../src/api'
+import { closeConnection, getDbClient, isConnected } from '../../src/helpers/db'
 
 beforeEach(() => {
   restoreDate()

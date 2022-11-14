@@ -2,7 +2,7 @@ import { ErrorParameters } from 'ajv'
 import { Context } from 'koa'
 
 export interface HashOf<T> {
-  [key: string]: any
+  [key: T]: any
 }
 
 export interface Error {
@@ -12,4 +12,7 @@ export interface Error {
   keyword?: string
   details?: string
   help?: string
+  status?: number
 }
+
+export type ContextApp = Context

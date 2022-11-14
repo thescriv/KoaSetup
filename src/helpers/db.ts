@@ -7,17 +7,25 @@ const log = logger.child({ file: 'db' })
 
 let client: MongoClient
 let dbPromise: MongoClient
-let dbIsConnected: boolean
+let dbIsConnected = false
 
-async function createConnection() {
+async function createConnection(
+  dbUrl = `${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`
+) {
   if (dbIsConnected) {
+    dbIsConnected = true
+
     return dbPromise
   }
 
-  client = new MongoClient(`${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`)
+  log.info(
+    { func: 'createConnection' },
+    'Initalize connection to MongoClient...'
+  )
 
-  client.on('open', () => (dbIsConnected = true))
-  client.on('close', () => (dbIsConnected = false))
+  client = new MongoClient(dbUrl)
+
+  dbIsConnected = true
 
   log.info({ func: 'createConnection' }, 'Initalize connection to Database...')
 
@@ -32,10 +40,12 @@ function isConnected() {
   return !!dbIsConnected
 }
 
-function closeConnection() {
+async function closeConnection() {
   log.info({ func: 'closeConnection' }, 'closing connection')
   if (client) {
-    client?.close()
+    await client.close()
+
+    dbIsConnected = false
 
     log.info({ func: 'closeConnection' }, 'Connection closed.')
   } else {

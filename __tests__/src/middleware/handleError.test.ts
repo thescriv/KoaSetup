@@ -1,10 +1,11 @@
-const { handleErrorMiddleware } = require('../../../src/middleware/handleError')
+import { ContextApp, Error } from '../../../src/interface'
+import handleErrorMiddleware from '../../../src/middleware/handleError'
 
 describe('Middleware handleError', () => {
   test('no error to handle', async () => {
     const nextMock = jest.fn().mockImplementation(() => {})
 
-    const ctx = {}
+    const ctx: any = {}
 
     handleErrorMiddleware(ctx, nextMock)
 
@@ -16,9 +17,11 @@ describe('Middleware handleError', () => {
       throw new Error()
     })
 
-    const ctx = {}
+    const ctx: any = {}
 
-    handleErrorMiddleware(ctx, nextMock)
+    handleErrorMiddleware(ctx as ContextApp, nextMock)
+
+    console.log(ctx)
 
     expect(ctx).not.toStrictEqual({})
     expect(ctx.status).toBe(500)
@@ -30,12 +33,12 @@ describe('Middleware handleError', () => {
 
   test('do handle http error', async () => {
     const nextMock = jest.fn().mockImplementation(() => {
-      const error = new Error('RANDOM ERROR')
+      const error: any = new Error('RANDOM ERROR')
       error.status = 400
       throw error
     })
 
-    const ctx = {}
+    const ctx: any = {}
 
     handleErrorMiddleware(ctx, nextMock)
 
@@ -49,13 +52,13 @@ describe('Middleware handleError', () => {
 
   test('do handle http error with an help error', async () => {
     const nextMock = jest.fn().mockImplementation(() => {
-      const error = new Error('RANDOM ERROR')
+      const error: any = new Error('RANDOM ERROR')
       error.status = 400
       error.help = 'please try again !'
       throw error
     })
 
-    const ctx = {}
+    const ctx: any = {}
 
     handleErrorMiddleware(ctx, nextMock)
 

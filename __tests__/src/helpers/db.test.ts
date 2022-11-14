@@ -1,11 +1,11 @@
-const config = require('../../../src/config')
+import config from '../../../src/config'
 
-const {
+import {
   createConnection,
   isConnected,
   closeConnection,
   getDbClient
-} = require('../../../src/helpers/db')
+} from '../../../src/helpers/db'
 
 describe('database connection API', () => {
   afterEach(() => {
@@ -25,49 +25,44 @@ describe('database connection API', () => {
 
     expect(dbConnection).toBeDefined()
     expect(isConnected()).toBe(true)
-    expect(dbConnection.s.url).toBe(
-      `${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`
-    )
-    expect(dbConnection.db().s.namespace.db).toBe(config.MONGO_DATABASE_NAME)
+    expect(dbConnection.db().databaseName).toBe(config.MONGO_DATABASE_NAME)
 
-    closeConnection()
+    await closeConnection()
   })
 
   test('do connect twice to the database and close connection', async () => {
     const dbConnection1 = await createConnection()
 
     expect(dbConnection1).toBeDefined()
-    expect(dbConnection1.s.url).toBe(
-      `${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`
-    )
-    expect(dbConnection1.db().s.namespace.db).toBe(config.MONGO_DATABASE_NAME)
+    expect(dbConnection1.db().databaseName).toBe(config.MONGO_DATABASE_NAME)
 
     const dbConnection2 = await createConnection()
 
     expect(dbConnection2).toBeDefined()
-    expect(dbConnection2.s.url).toBe(
-      `${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`
-    )
-    expect(dbConnection2.db().s.namespace.db).toBe(config.MONGO_DATABASE_NAME)
+    expect(dbConnection2.db().databaseName).toBe(config.MONGO_DATABASE_NAME)
 
-    closeConnection()
+    await closeConnection()
   })
 
   test('do connect to the database and close connection twice', async () => {
+    console.log('HELLO')
+
     const dbConnection = await createConnection()
+
+    console.log('HELLO')
+
+    console.log(dbConnection.db().databaseName)
 
     expect(dbConnection).toBeDefined()
     expect(isConnected()).toBe(true)
-    expect(dbConnection.s.url).toBe(
-      `${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`
-    )
-    expect(dbConnection.db().s.namespace.db).toBe(config.MONGO_DATABASE_NAME)
+    expect(dbConnection.db().databaseName).toBe(config.MONGO_DATABASE_NAME)
 
-    closeConnection()
+    await closeConnection()
 
     expect(isConnected()).toBe(false)
 
-    closeConnection()
+    await closeConnection()
+    expect(isConnected()).toBe(false)
   })
 
   test('do connect to the database, insert in test collection and close connection', async () => {
@@ -75,16 +70,13 @@ describe('database connection API', () => {
 
     expect(dbConnection).toBeDefined()
     expect(isConnected()).toBe(true)
-    expect(dbConnection.s.url).toBe(
-      `${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`
-    )
-    expect(dbConnection.db().s.namespace.db).toBe(config.MONGO_DATABASE_NAME)
+    expect(dbConnection.db().databaseName).toBe(config.MONGO_DATABASE_NAME)
 
     const insertedDocument = await getDbClient()
       .collection('test')
       .insertOne({ name: 'foobar' })
 
-    const testDocument = await getDbClient()
+    const testDocument: any = await getDbClient()
       .collection('test')
       .findOne({ name: 'foobar' })
 
@@ -94,6 +86,6 @@ describe('database connection API', () => {
     expect(insertedDocument.insertedId.equals(testDocument._id))
     expect(testDocument.name).toBe('foobar')
 
-    closeConnection()
+    await closeConnection()
   })
 })
