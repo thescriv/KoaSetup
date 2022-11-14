@@ -27,14 +27,14 @@ describe('HelloWorld API', () => {
     })
 
     test('do not postHelloWorld (bad payload)', async () => {
-      let error
+      let error: any
 
       try {
         await client.postHelloWorld({
           birthday: '01/01/2000'
         })
-      } catch (err) {
-        error = err.response
+      } catch (err: any) {
+        error = err?.response
       }
       const { body, status } = error
 

@@ -1,4 +1,4 @@
-import superagent from 'superagent'
+import * as superagent from 'superagent'
 
 import { HashOf } from '../src/interface'
 

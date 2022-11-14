@@ -45,13 +45,7 @@ describe('database connection API', () => {
   })
 
   test('do connect to the database and close connection twice', async () => {
-    console.log('HELLO')
-
     const dbConnection = await createConnection()
-
-    console.log('HELLO')
-
-    console.log(dbConnection.db().databaseName)
 
     expect(dbConnection).toBeDefined()
     expect(isConnected()).toBe(true)

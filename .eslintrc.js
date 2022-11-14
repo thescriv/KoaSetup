@@ -9,6 +9,6 @@ module.exports = {
   ],
   rules: {
     'space-before-function-paren': 0,
-    'no-explicit-any': ['off']
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }

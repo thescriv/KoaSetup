@@ -1,6 +1,6 @@
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
 
-const { startApi } = require('./src/api')
+import { startApi } from './src/api'
 
 async function main() {
   try {

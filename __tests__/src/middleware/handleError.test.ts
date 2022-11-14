@@ -21,8 +21,6 @@ describe('Middleware handleError', () => {
 
     handleErrorMiddleware(ctx as ContextApp, nextMock)
 
-    console.log(ctx)
-
     expect(ctx).not.toStrictEqual({})
     expect(ctx.status).toBe(500)
     expect(ctx.body).toStrictEqual({
