@@ -1,5 +1,5 @@
 import config from '../../src/config'
-import { createConnection } from '../../src/helpers/db'
+import { createConnection } from '../../src/helpers/db_mongo'
 
 import { startApi } from '../../src/api'
 

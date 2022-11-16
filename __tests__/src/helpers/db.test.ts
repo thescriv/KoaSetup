@@ -5,7 +5,7 @@ import {
   isConnected,
   closeConnection,
   getDbClient
-} from '../../../src/helpers/db'
+} from '../../../src/helpers/db_mongo'
 
 describe('database connection API', () => {
   afterEach(() => {

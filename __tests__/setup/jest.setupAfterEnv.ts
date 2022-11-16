@@ -1,6 +1,10 @@
 import { restoreDate, mockDate } from '../jest.mock'
 import { stopApi } from '../../src/api'
-import { closeConnection, getDbClient, isConnected } from '../../src/helpers/db'
+import {
+  closeConnection,
+  getDbClient,
+  isConnected
+} from '../../src/helpers/db_mongo'
 
 beforeEach(() => {
   restoreDate()
