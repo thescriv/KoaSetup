@@ -1,10 +1,12 @@
 import { restoreDate, mockDate } from '../jest.mock'
 import { stopApi } from '../../src/api'
 import {
-  closeConnection,
+  closeConnection as closeMongoConnection,
   getDbClient,
   isConnected
 } from '../../src/helpers/db_mongo'
+
+import { closeConnection as closeMysqlConnection } from '../../src/helpers/db_mysql'
 
 beforeEach(() => {
   restoreDate()
@@ -21,7 +23,8 @@ afterAll(async () => {
     await getDbClient().dropDatabase()
   }
 
-  await closeConnection()
+  await closeMongoConnection()
+  await closeMysqlConnection()
 
   await stopApi()
 })

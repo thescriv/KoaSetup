@@ -11,6 +11,7 @@ jobs:
     docker:
       - image: cimg/node:16.10
       - image: mongo:5
+      - image: mysql:8
     steps:
       - checkout
       - node/install-packages
