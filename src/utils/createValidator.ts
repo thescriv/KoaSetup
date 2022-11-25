@@ -4,7 +4,7 @@ import { HashOf } from '../interface'
 
 const ajv = new Ajv()
 
-function createValidator(schema: HashOf<any>) {
+function createValidator(schema: object) {
   const ajvValidator = ajv.compile(schema)
 
   return function validate(data: any) {
