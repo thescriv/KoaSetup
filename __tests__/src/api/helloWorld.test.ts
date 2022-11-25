@@ -1,10 +1,10 @@
-import beforeAllSetup from '../../setup/jest.setup.beforeAll'
+import { beforeAllSetupMongo } from '../../setup/jest.setup.beforeAll'
 
 let client: any
 
 describe('HelloWorld API', () => {
   beforeAll(async () => {
-    client = await beforeAllSetup(3000)
+    client = await beforeAllSetupMongo(3000)
   })
 
   describe('GET /classic_get', () => {

@@ -5,7 +5,7 @@ import {
   isConnected,
   closeConnection,
   getDbClient
-} from '../../../src/helpers/db'
+} from '../../../src/helpers/db_mongo'
 
 describe('database connection API', () => {
   afterEach(() => {
@@ -17,7 +17,7 @@ describe('database connection API', () => {
     expect(config.MONGO_URL).toBe('mongodb://localhost:27017')
 
     expect(config.MONGO_DATABASE_NAME).toBeDefined()
-    expect(config.MONGO_DATABASE_NAME).toBe('test-koaSetup')
+    expect(config.MONGO_DATABASE_NAME).toBe('test-mongo-koaSetup')
   })
 
   test('do connect to the database and close connection', async () => {

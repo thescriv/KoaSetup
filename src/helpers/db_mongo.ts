@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb'
 import config from '../config'
 import { logger } from '../utils/logger'
 
-const log = logger.child({ file: 'db' })
+const log = logger.child({ file: 'db_mongo' })
 
 let client: MongoClient
 let dbPromise: MongoClient
@@ -41,15 +41,15 @@ function isConnected() {
 }
 
 async function closeConnection() {
-  log.info({ func: 'closeConnection' }, 'closing connection')
+  log.info({ func: 'closeConnection' }, 'closing MONGO connection')
   if (client) {
     await client.close()
 
     dbIsConnected = false
 
-    log.info({ func: 'closeConnection' }, 'Connection closed.')
+    log.info({ func: 'closeConnection' }, 'MONGO Connection closed.')
   } else {
-    log.info({ func: 'closeConnection' }, 'connection already closed.')
+    log.info({ func: 'closeConnection' }, 'MONGO connection already closed.')
   }
 }
 
