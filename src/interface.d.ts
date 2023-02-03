@@ -1,5 +1,5 @@
 import { ErrorParameters } from 'ajv'
-import { Context } from 'koa'
+import { DefaultContext } from 'koa'
 
 export interface HashOf<T> {
   [key: T]: any
@@ -15,4 +15,4 @@ export interface Error {
   status?: number
 }
 
-export type ContextApp = Context
+export interface ContextApp extends DefaultContext {} // eslint-disable-line

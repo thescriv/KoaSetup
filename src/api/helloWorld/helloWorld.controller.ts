@@ -1,7 +1,6 @@
 import createError from 'http-errors'
-import { validateHelloWorldBody } from './helloWorld.schema'
-
 import { ContextApp } from '../../interface'
+import { validateHelloWorldBody } from './helloWorld.schema'
 
 async function getHelloWorldController(ctx: ContextApp) {
   ctx.body = {}
