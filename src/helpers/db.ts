@@ -3,14 +3,14 @@ import { MongoClient } from 'mongodb'
 import config from '../config'
 import { logger } from '../utils/logger'
 
-const log = logger.child({ file: 'db_mongo' })
+const log = logger.child({ file: 'db' })
 
 let client: MongoClient
 let dbPromise: MongoClient
 let dbIsConnected = false
 
 async function createConnection(
-  dbUrl = `${config.MONGO_URL}/${config.MONGO_DATABASE_NAME}`
+  dbUrl = `${config.MONGO_URI}/${config.MONGO_DATABASE_NAME}`
 ) {
   if (dbIsConnected) {
     dbIsConnected = true

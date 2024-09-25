@@ -22,7 +22,8 @@
     "coverage": "jest --coverage",
     "prepare": "husky install",
     "lint": "eslint -c .eslintrc.js './src/**/*.ts'",
-    "build": "tsc",
+    "build": "node --max-old-space-size=8192 ./node_modules/.bin/tsc --sourceMap",
+    "build:watch": "tsc --sourceMap --watch",
     "watch": "tsc --watch"
   },
   "repository": {

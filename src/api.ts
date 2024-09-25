@@ -4,7 +4,7 @@ import cors from '@koa/cors'
 import { Server } from 'http'
 
 import { logger } from './utils/logger'
-import { createConnection, closeConnection } from './helpers/db_mongo'
+import { createConnection, closeConnection } from './helpers/db'
 
 import handleSuccess from './middleware/handleSuccess'
 import handleErrorMiddleware from './middleware/handleError'
